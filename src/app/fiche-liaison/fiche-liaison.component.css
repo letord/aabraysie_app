@@ -1,0 +1,32 @@
+.gauche{
+  text-align: end;
+}
+.droite{
+  text-align: left;
+}
+.top {
+  text-align: center;
+  background-color: #90b324;
+  color: #f6f5ee;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.fixed-bottom {
+  position: center;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.btn-btn-primary {
+  font-size: 30px;
+  text-align: center;
+  background-color: #90b324;
+  color: #f6f5ee;
+  border: 2px solid lightgray;
+  border-radius: 10px;
+  padding: 16px 32px;
+}
+.container {
+  font-size: 20px;
+  padding: 20px 0px;
+}

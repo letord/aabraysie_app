@@ -1,0 +1,39 @@
+button {
+  width:80%;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  background-color: #90b324;
+}
+Label {
+  color: #f6f5ee;
+}
+.overflow-auto{
+  margin-right: 80px;
+  margin-left: 80px;
+  margin-top: 55px;
+}
+.fixed-top{
+  background-color: #90b324;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+h3 {
+  text-align: center;
+  color: #f6f5ee;
+  height: 90%;
+}
+.image_deco{
+  max-height: 40px;
+  max-width: 40px;
+}
+#date_titre{
+  font-size: 30px;
+}

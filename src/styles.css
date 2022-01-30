@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+/**
+body {
+background-color: #90b324;
+  margin: 0;
+}
+
+#fond{
+  background-color: #f6f5ee;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 90%;
+  height: 90%;
+  margin : 5%;
+  border-radius: 20px;
+}
+**/

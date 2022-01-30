@@ -1,0 +1,17 @@
+<div class='card text-dark bg-light stretched-link mb-3' [routerLink]="['fiche-liaison', intervention.id]" >
+  <div class="row card-header">
+    <div class="col-10">
+      <h5 class=""> {{intervention.libelle}}</h5>
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-default" *ngIf="intervention.iscommented">
+        <img src="../assets/check.svg" alt="log out">
+      </button>
+    </div>
+  </div>
+  <div class="card-body row" >
+    <h5 class="start col-6">{{intervention.heure_debut | date : 'HH:mm'}}</h5>
+    <h5 class="end col-6">{{intervention.heure_fin | date : 'HH:mm'}}</h5>
+  </div>
+</div>
+

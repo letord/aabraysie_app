@@ -1,0 +1,24 @@
+<main class="form-signin">
+  <form data-bitwarden-watching="1">
+
+    <h1 class="h3 mb-3 fw-normal">Connexion</h1>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+             [formControl]="username">
+      <label for="floatingInput">Adresse Email</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [formControl]="password">
+      <label for="floatingPassword">Mot de passe</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Se souvenir de moi
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" id="connexion_button"
+    (click)="resultat_connexion.emit(true)">Se connecter</button>
+  </form>
+</main>

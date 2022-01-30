@@ -1,0 +1,76 @@
+<div class="top">
+  <div class="row">
+    <div class="col-1">
+      <button type="button" class="btn btn-default">
+        <img src="../assets/arrow-left.svg" alt="left arrow" weight="37" height="37">
+      </button>
+    </div>
+    <div class="col">
+      <h1>Fiche de liaison</h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+      <div class="gauche">
+        {{intervention.date | date : 'EEEE d MMMM y'}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h3>Coordonée</h3>
+    </div>
+    <div class="col">
+      <div class="droite">
+        {{intervention.nom_prenom}} <br>
+        {{intervention.adresse_intervention}} <br>
+        {{intervention.telephone}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="gauche">
+        Consignes :
+      </div>
+    </div>
+    <div class="col" >
+      <div class="droite">
+        {{intervention.consigne}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fixed-bottom">
+  <button type="button" class="btn-btn-primary" (click)="openPopup()">Fini</button>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Avis du Client</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Commentaire:</label>
+            <textarea class="form-control" id="message-text">{{intervention.commentaire_client}}</textarea>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">Confirmer</button>
+        <button type="button" class="btn btn-" data-dismiss="modal" (click)="closePopup()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+

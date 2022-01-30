@@ -1,0 +1,35 @@
+<app-connexion *ngIf="!connected"
+               (resultat_connexion)="setConnected($event)">
+</app-connexion>
+<div *ngIf="connected">
+  <div class="fixed-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-10">
+          <Label id="date_titre">{{full_string_date}}</Label>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-default" (click)="setConnected(false)">
+            <img class="image_deco" src="../assets/person-x-fill.svg" alt="log out">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-auto" >
+    <div *ngFor="let intervention of list_interventions">
+        <app-intervention-item [intervention]="intervention"></app-intervention-item>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button type="button" class="btn btn-default" (click)="PreviousDay()">
+      <img src="../../assets/arrow-left-square-fill.svg" alt="left arrow">
+    </button>
+    <Label>{{string_date}}</Label>
+    <button type="button" class="btn btn-default" (click)="NextDay()">
+      <img src="../assets/arrow-right-square-fill.svg" alt="right arrow">
+    </button>
+  </div>
+</div>
+
