@@ -1,7 +1,4 @@
-<app-connexion *ngIf="!connected"
-               (resultat_connexion)="setConnected($event)">
-</app-connexion>
-<div *ngIf="connected">
+<div>
   <div class="fixed-top">
     <div class="container">
       <div class="row">
@@ -9,7 +6,7 @@
           <Label id="date_titre">{{full_string_date}}</Label>
         </div>
         <div class="col">
-          <button type="button" class="btn btn-default" (click)="setConnected(false)">
+          <button type="button" class="btn btn-default" (click)="Disconnect()">
             <img class="image_deco" src="../assets/person-x-fill.svg" alt="log out">
           </button>
         </div>

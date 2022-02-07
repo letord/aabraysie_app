@@ -1,3 +1,6 @@
+<div *ngIf="echecConnexion" class="alert alert-danger">
+  Indentifiant/Mot de passe incorrect
+</div>
 <main class="form-signin">
   <form data-bitwarden-watching="1">
 
@@ -12,13 +15,12 @@
       <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [formControl]="password">
       <label for="floatingPassword">Mot de passe</label>
     </div>
-
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Se souvenir de moi
-      </label>
-    </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit" id="connexion_button"
-    (click)="resultat_connexion.emit(true)">Se connecter</button>
+    (click)="connexion()">Se connecter</button>
   </form>
 </main>
+<div class="footer">
+  <img src="../../assets/aabraysie-standard.svg" alt="left arrow">
+</div>
+
+

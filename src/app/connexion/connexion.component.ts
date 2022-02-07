@@ -1,6 +1,9 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {UserService} from "../services/user.service";
+import {AuthService} from "../services/auth.service";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {User} from "../model/user";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-connexion',
@@ -11,19 +14,34 @@ export class ConnexionComponent implements OnInit {
 
   username = new FormControl();
   password = new FormControl();
-  @Output() resultat_connexion = new EventEmitter<boolean>();
+  echecConnexion : boolean = false;
 
-  constructor(private userService : UserService) {
-
-
-  }
+  constructor(
+    private http : HttpClient,
+    private router : Router,
+    private authService : AuthService ) {}
   ngOnInit(){
   }
 
-  onSubmit(){
-    console.log(this.username.value);
-    console.log(this.password.value);
-    this.userService.setConnected(true);
-    this.resultat_connexion.emit(true);
+  async connexion(){
+    await this.authService.connexion(this.username.value,this.password.value).toPromise()
+   .then(
+     response => {
+       let user : User = {idEquipe:0,nom :'',prenom : ''};
+       user.idEquipe=response.idEquipe;
+       user.nom=response.contactUtilisateur.nom;
+       user.prenom=response.contactUtilisateur.prenom;
+       this.authService.setUser(user);
+       this.echecConnexion=false;
+       this.router.navigate(['/intervention']);
+     },
+     error => {
+       if(error.status == '404'){
+         console.log('error 404')
+         this.echecConnexion=true;
+       }
+     }
+
+   )
   }
 }

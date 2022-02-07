@@ -19,7 +19,6 @@ export class InterventionItemComponent implements OnInit {
     nom_prenom: "Daudet Jean Marc",
     adresse_intervention : "92 Rue de la Bediniere 45800 ST JEAN DE BRAYE",
     telephone: '0609675469',
-    telephone_portable: '',
     consigne : 'prendre une tondeuse'
      };
 

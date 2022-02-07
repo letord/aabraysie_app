@@ -30,3 +30,24 @@
   background-color: #90b324;
   border: 1px solid white;
 }
+.hintmdp {
+  padding-top: 5px;
+  color: darkred;
+  text-align: center;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  display: flex;
+}
+.footer img {
+  text-align: center;
+  padding-bottom: 300px;
+  margin: auto;
+  height: 40%;
+  width: 40%;
+}
