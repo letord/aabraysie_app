@@ -9,21 +9,15 @@ button {
   bottom: 0;
   width: 100%;
   text-align: center;
-  display: flex;
+  display : flex;
   background-color: #90b324;
-}
-Label {
-  color: #f6f5ee;
-}
-.overflow-auto{
-  margin-right: 80px;
-  margin-left: 80px;
-  margin-top: 55px;
+  height: 8vh;
 }
 .fixed-top{
   background-color: #90b324;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 8vh;
 }
 h3 {
   text-align: center;
@@ -37,3 +31,16 @@ h3 {
 #date_titre{
   font-size: 30px;
 }
+
+
+.overflow-auto{
+  padding-top: 8vh;
+  padding-bottom: 8vh;
+  height: 100vh;
+  overflow-x: scroll;
+  overflow-y: 90vw;
+}
+Label {
+  color: #f6f5ee;
+}
+

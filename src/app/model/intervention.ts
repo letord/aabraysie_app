@@ -1,5 +1,3 @@
-import {SimpleDate} from "./simpleDate";
-
 export interface Intervention {
   id : number;
   date : Date;

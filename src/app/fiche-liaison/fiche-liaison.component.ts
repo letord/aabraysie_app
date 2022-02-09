@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 import {InterventionService} from "../services/intervention.service";
 import {Intervention} from "../model/intervention";
 import {Location} from "@angular/common";

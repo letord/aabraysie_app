@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from "../model/user";
 
@@ -6,6 +6,7 @@ import {User} from "../model/user";
   providedIn: 'root'
 })
 export class AuthService {
+
   private connected: boolean;
   private user : User;
 
@@ -15,6 +16,7 @@ export class AuthService {
   }
   connexion (login:string, password:string){
     let HttpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})}
+    //let connexionURL : string = 'https://dillxpbackend.herokuapp.com/utilisateurs/connexion'
     let connexionURL: string = 'http://localhost:8080/utilisateurs/connexion'
     var logs= {
       login: login,

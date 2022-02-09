@@ -13,8 +13,9 @@
       </div>
     </div>
   </div>
+
   <div class="overflow-auto" >
-    <div *ngFor="let intervention of list_interventions">
+    <div *ngFor="let intervention of list_interventions" >
         <app-intervention-item [intervention]="intervention"></app-intervention-item>
     </div>
   </div>

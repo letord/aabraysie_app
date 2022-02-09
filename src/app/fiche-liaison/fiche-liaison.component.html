@@ -22,7 +22,7 @@
   </div>
   <div class="row">
     <div class="col-6">
-      <h3>Coordonée</h3>
+      <h3>Coordonnées</h3>
     </div>
     <hr class="my-4">
     <div class="col">
@@ -45,30 +45,25 @@
   <div class="fixed-bottom">
     <button type="button" class="btn-btn-primary" (click)="openPopup()">Fini</button>
   </div>
-
-
-<div class="modal" tabindex="-1" role="dialog"
-  [ngStyle]="{'display':displayStyle}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Avis du Client</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Commentaire:</label>
-            <textarea class="form-control" id="message-text" [formControl]="commentaire">{{intervention_selected.commentaire_client}}</textarea>
-          </div>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closePopup()" (click)="backToListIntervention()" (click)="saveCommentaire()">Confirmer</button>
-        <button type="button" class="btn btn-" data-dismiss="modal" (click)="closePopup()">Annuler</button>
+</div>
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Avis du Client</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Commentaire:</label>
+              <textarea class="form-control" id="message-text" [formControl]="commentaire">{{intervention_selected.commentaire_client}}</textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closePopup()" (click)="backToListIntervention()" (click)="saveCommentaire()">Confirmer</button>
+          <button type="button" class="btn btn-" data-dismiss="modal" (click)="closePopup()">Annuler</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-</div>

@@ -3,10 +3,18 @@ h5{
 }
 .card {
   margin-top: 50px;
+  max-width: 600px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .start {
   text-align: left;
 }
 .end {
   text-align: right;
+}
+.row{
+  margin-right: 0;
+  margin-left: 0;
 }

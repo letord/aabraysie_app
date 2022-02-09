@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from 'rxjs/operators'
 import {Intervention} from '../model/intervention'
-import {SimpleDate} from "../model/simpleDate";
+import {DateService} from "./date.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +12,22 @@ import {SimpleDate} from "../model/simpleDate";
 export class InterventionService {
 
   private map_interventions : Map<number,Intervention>= new Map<number,Intervention>();
+  private list_interventions : Array<Intervention> = new Array<Intervention>();
 
-  constructor(private http: HttpClient) {
-
+  constructor(private http: HttpClient, private dateService : DateService) {
   }
 
   getInterventions(id : number, annee : number) : Observable<Intervention[]> {
     let HttpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})}
-    //let URL : string = 'http://localhost:8080/interventions/'+id+'/'+annee;
-    let URL : string = 'http://localhost:8080/interventions/5/2016';
-    console.log('url : ',URL)
+    //let URL : string = 'https://dillxpbackend.herokuapp.com/interventions/'+id+'/'+annee;
+    let URL : string = 'http://localhost:8080/interventions/'+id+'/'+annee;
+
     return this.http.get<any>(URL, HttpOptions).pipe(
       map(response => {
-        console.log('response : ',response)
         let interventions : Array<Intervention> = [];
         for (let i = 0; i < response.length; i++) {
           let id = response[i].id;
-          let date = this.stringToDate(response[i].date);
+          let date = this.dateService.stringToDateJSON(response[i].date);
           let heure_debut = response[i].heure_debut;
           let heure_fin = response[i].heure_fin;
           let libelle = response[i].libelle;
@@ -51,37 +50,53 @@ export class InterventionService {
             commentaire_client : commentaire_client,
             iscommented : iscommented
            }
-           console.log(intervention)
            interventions.push(intervention)
         }
-
         return interventions;
       })
     );
   }
-  stringToDate(val : string) : Date{
-    let tab : string[] = val.split('-')
-    console.log(tab)
-    let day : Date = new Date(Number(tab[0]),Number(tab[1]),Number(tab[2]));
-    return day;
+
+  setInterventions(list : Array<Intervention>){
+    for (let i = 0; i <list.length ; i++) {
+      this.map_interventions.set(list[i].id, list[i])
+      this.list_interventions.push(list[i])
+    }
+  }
+  get_Interventions() : Array<Intervention>{
+    return this.list_interventions;
+  }
+
+  get_Intervention(id : number) : Intervention{
+    // @ts-ignore
+    return this.map_interventions.get(id)
+  }
+
+  get_interventions_today (date : Date): Array<Intervention>{
+    let interventions : Array<Intervention> = new Array<Intervention>();
+    for (let i = 0; i < this.list_interventions.length; i++) {
+      let intervention : Intervention = this.list_interventions[i];
+      if(this.dateService.equalDate(date, intervention.date)){
+        interventions.push(intervention)
+      }
+    }
+    console.log('date ',date)
+    console.log('Interventions : ',this.list_interventions)
+    console.log('Intervention today : ',interventions)
+    return interventions;
   }
 
   addCommentaire(id : number, commentaire_client : string) {
     let HttpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})}
-    let URL : string = 'http://localhost:8080/interventions/fiche';
+    let URL : string = 'https://dillxpbackend.herokuapp.com/interventions/fiche';
     var commentaire = {
       id: id,
       commentaire_client:commentaire_client
     }
-    this.http.post(URL, commentaire, HttpOptions)
-  }
-  setInterventions(list : Array<Intervention>){
-    for (let i = 0; i <list.length ; i++) {
-      this.map_interventions.set(list[i].id, list[i])
-    }
-  }
-  get_Intervention(id : number) : Intervention{
-    // @ts-ignore
-    return this.map_interventions.get(id)
+    this.http.post(URL, commentaire, HttpOptions).subscribe(
+      response => {
+        console.log('response : ',response)
+      }
+    )
   }
 }
