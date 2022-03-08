@@ -24,10 +24,33 @@
     <button type="button" class="btn btn-default" (click)="PreviousDay()">
       <img src="../../assets/arrow-left-square-fill.svg" alt="left arrow">
     </button>
-    <Label>{{string_date}}</Label>
+    <button type="button" class="btn btn-default" (click)="openPopup()">
+      <img src="../../assets/calendar.svg" alt="left arrow">
+    </button>
     <button type="button" class="btn btn-default" (click)="NextDay()">
       <img src="../assets/arrow-right-square-fill.svg" alt="right arrow">
     </button>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sélectionner Date</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input type="date" id="date" [formControl]="dateControl">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()" >Confirmer</button>
+        <button type="button" class="btn btn-" data-dismiss="modal" (click)="closePopup()">Annuler</button>
+      </div>
+    </div>
   </div>
 </div>
 

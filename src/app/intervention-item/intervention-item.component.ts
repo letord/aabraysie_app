@@ -12,15 +12,15 @@ export class InterventionItemComponent implements OnInit {
   @Input() intervention : Intervention = {
     id : 0,
     date : new Date(),
-    heure_debut : 8,
-    heure_fin : 11,
+    heure_debut : "08:00",
+    heure_fin : "11:00",
     libelle : 'Tonte' ,
     iscommented : false,
     nom_prenom: "Daudet Jean Marc",
     adresse_intervention : "92 Rue de la Bediniere 45800 ST JEAN DE BRAYE",
     telephone: '0609675469',
     consigne : 'prendre une tondeuse'
-     };
+  };
 
   constructor() { }
   ngOnInit(): void {

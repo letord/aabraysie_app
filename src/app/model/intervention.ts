@@ -1,8 +1,8 @@
 export interface Intervention {
   id : number;
   date : Date;
-  heure_debut : number; //type Time
-  heure_fin : number; //type Time
+  heure_debut : string; //type Time
+  heure_fin : string; //type Time
   libelle : string;
   nom_prenom : string;
   adresse_intervention : string;
@@ -20,7 +20,7 @@ export interface Intervention {
   "heure_fin": "10:15:00",
   "libelle": "nettoyage",
   "nom_prenom": "John Doe [ login: joe2]",
-  "addresse_intervention": "",
+  "adresse_intervention": "",
   "telephone": "0412488432",
   "consigne": "Signature client no need"
 }

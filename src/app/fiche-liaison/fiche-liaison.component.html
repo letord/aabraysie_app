@@ -1,36 +1,43 @@
 <div class="top">
   <div class="row">
     <div class="col-1">
-      <button type="button" class="btn btn-default" (click)="backToListIntervention()">
+      <a href={{mapsLink}} target='_blank'>
         <img src="../assets/arrow-left.svg" alt="left arrow" weight="37" height="37">
-      </button>
+      </a>
     </div>
     <div class="col">
-      <h1>{{intervention_selected.date | date : 'dd MMMM y'}}</h1>
+      <h1>{{intervention_selected.libelle}}</h1>
     </div>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col-2">
+      Nom :
     </div>
     <div class="col">
-      <div class="gauche">
-      </div>
+      {{intervention_selected.nom_prenom}}
     </div>
   </div>
   <div class="row">
-    <div class="col-6">
-      <h3>Coordonnées</h3>
+    <div class="col-2">
+      <button type="button" class="btn btn-default">
+        <img src="../assets/geo-alt-fill.svg" alt="map" weight="30" height="30">
+      </button>
     </div>
-    <hr class="my-4">
     <div class="col">
-      <div class="droite">
-        {{intervention_selected.nom_prenom}} <br>
-        {{intervention_selected.adresse_intervention}} <br>
-        Tel : {{intervention_selected.telephone}}
-      </div>
+      {{intervention_selected.adresse_intervention}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <button type="button" class="btn btn-default">
+        <img src="../assets/telephone-fill.svg" alt="map" weight="30" height="30">
+      </button>
+    </div>
+    <div class="col">
+      {{intervention_selected.telephone}}
     </div>
   </div>
   <div class="container midblock">
@@ -39,7 +46,7 @@
     </div>
     <hr class="my-4">
     <div class="row" >
-      {{intervention_selected.consigne}}s
+      {{intervention_selected.consigne}}
     </div>
   </div>
   <div class="fixed-bottom">
@@ -56,14 +63,16 @@
           <form>
             <div class="form-group">
               <label for="message-text" class="col-form-label">Commentaire:</label>
-              <textarea class="form-control" id="message-text" [formControl]="commentaire">{{intervention_selected.commentaire_client}}</textarea>
+              <textarea class="form-control" id="message-text" [formControl]="commentaireControl">{{intervention_selected.commentaire_client}}</textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closePopup()" (click)="backToListIntervention()" (click)="saveCommentaire()">Confirmer</button>
+          <button type="button" class="btn btn-secondary" (click)="saveCommentaire()">Confirmer</button>
           <button type="button" class="btn btn-" data-dismiss="modal" (click)="closePopup()">Annuler</button>
         </div>
       </div>
     </div>
   </div>
+
+

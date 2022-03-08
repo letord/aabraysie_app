@@ -40,14 +40,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
   text-align: center;
   display: flex;
+  width: 100vw;
+  height: 65vh;
 }
 .footer img {
-  text-align: center;
-  padding-bottom: 300px;
   margin: auto;
-  height: 40%;
-  width: 40%;
+  height: 100%;
+  width: 70%;
 }

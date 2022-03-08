@@ -27,35 +27,35 @@ export class ConnexionComponent implements OnInit {
   }
 
   ngOnInit(){
-
   }
 
   async connexion(){
-    await this.authService.connexion(this.username.value,this.password.value).toPromise()
-   .then(
-     response => {
-       let user : User = {idEquipe : 0, nom : '', prenom : ''};
-       user.idEquipe=response.idEquipe;
-       user.nom=response.contactUtilisateur.nom;
-       user.prenom=response.contactUtilisateur.prenom;
-       this.authService.setUser(user);
-       this.echecConnexion=false;
-       this.download_interventions(response.idEquipe,this.date.getFullYear());
-     },
-     error => {
-       if(error.status == '404'){
-         console.log('error 404')
-         this.echecConnexion=true;
-       }
-     }
-   )
-  }
+    await this.authService.connexion(this.username.value,this.password.value).toPromise().then(
+      response => {
+        console.log('Connexion : ',response)
+        let user : User = {idEquipe : 0, nom : '', prenom : ''};
+        user.idEquipe=response.idEquipe;
+        user.nom=response.contactUtilisateur.nom;
+        user.prenom=response.contactUtilisateur.prenom;
+        var token = response.token;
+        this.authService.setUser(user, token);
+        this.echecConnexion=false;
+        //this.authService.setIsConnected(true);
+        this.download_interventions(response.idEquipe,this.date.getFullYear());
+      },
+      error => {
+        if(error.status == '404'){
+        console.log('error 404');
+        this.echecConnexion=true;
+      }
+    }
+  )
+}
+
   async download_interventions(id:number,annee : number){
     await this.interventionService.getInterventions(id, annee).toPromise()
       .then(
         response => {
-          this.interventionService.setInterventions(response);
-          console.log('this date ',this.date)
           this.router.navigate(['/intervention/'+this.dateService.dateToString(this.date)]);
         }
       )

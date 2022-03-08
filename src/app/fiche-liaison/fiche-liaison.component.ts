@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {InterventionService} from "../services/intervention.service";
 import {Intervention} from "../model/intervention";
 import {Location} from "@angular/common";
 import {FormControl} from "@angular/forms";
+import { DateService } from '../services/date.service';
+import { HttpUrlEncodingCodec } from '@angular/common/http';
 
 
 @Component({
@@ -15,12 +17,13 @@ import {FormControl} from "@angular/forms";
 export class FicheLiaisonComponent implements OnInit {
 
   displayStyle="none";
-  commentaire = new FormControl();
+  commentaireControl : FormControl = new FormControl();
+  mapsLink : string = '';
   intervention_selected : Intervention = {
     id : 0,
     date : new Date(),
-    heure_debut : 8,
-    heure_fin : 11,
+    heure_debut : "08:00",
+    heure_fin : "11:00",
     libelle : 'Tonte' ,
     iscommented : false,
     nom_prenom: "Daudet Jean Marc",
@@ -29,13 +32,48 @@ export class FicheLiaisonComponent implements OnInit {
     consigne : 'prendre une tondeuse'
   }
 
-  constructor(private route: ActivatedRoute, private interventionService : InterventionService, private _location : Location) {
+  constructor(private route: ActivatedRoute, private router : Router, private interventionService : InterventionService, private dateService : DateService) {
   }
 
   ngOnInit(): void {
     const IdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
-    console.log(IdFromRoute)
     this.intervention_selected=this.interventionService.get_Intervention(IdFromRoute)
+    console.log('intervention selected : ', this.intervention_selected)
+    this.mapsLink = this.transformIntoLink(''+this.intervention_selected.adresse_intervention);
+  }
+
+  transformIntoLink(adress : string) : string{
+    var link : string = "https://www.google.com/maps/search/?api=1&query=";
+    var  frparam : string = "&hl=fr";
+    var adressTab : string[]  = adress.split(' ');
+    console.log('adressTab',adressTab)
+    var adressParam : string = ""
+    for (let i = 0; i < adressTab.length; i++) {
+      if(adressParam.length-1!=i){
+        adressParam+=adressTab[i]+'+'
+      }
+      else {
+        adressParam+=adressTab[i]+''
+      }
+    }
+    return  link+adressParam+frparam;
+  }
+
+  async saveCommentaire(){
+    let id : number = this.intervention_selected.id;
+    let  commentaire = this.commentaireControl.value;
+    await this.interventionService.addCommentaire(id, commentaire).toPromise().
+    then(
+      response  => {
+        console.log('response Commentaire : ',response)
+        this.interventionService.setCommentaire(id, commentaire)
+        this.closePopup();
+        this.router.navigate(['/intervention/'+this.dateService.dateToString(this.intervention_selected.date)]);
+      },
+      error => {
+        console.log('error Commentaire : ',error)
+      }
+    )
   }
   openPopup(){
     this.displayStyle="block";
@@ -44,11 +82,6 @@ export class FicheLiaisonComponent implements OnInit {
     this.displayStyle="none";
   }
   backToListIntervention(){
-    this._location.back();
-  }
-  saveCommentaire(){
-    this.interventionService.addCommentaire(this.intervention_selected.id, this.commentaire.value);
-    this.intervention_selected.commentaire_client=this.commentaire.value;
-    this.intervention_selected.iscommented=true;
+    this.router.navigate(['/intervention/'+this.dateService.dateToString(this.intervention_selected.date)]);
   }
 }

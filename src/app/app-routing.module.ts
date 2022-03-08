@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/connexion', pathMatch: 'full' },
   {path:'connexion', component : ConnexionComponent},
   {path:'intervention/:date', component : InterventionListComponent, canActivate : [AuthGuard]},
-  {path: 'intervention/:date/fiche-liaison/:id', component : FicheLiaisonComponent}
+  {path: 'intervention/:date/fiche-liaison/:id', component : FicheLiaisonComponent, canActivate : [AuthGuard]}
 ];
 
 @NgModule({

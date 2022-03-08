@@ -48,11 +48,18 @@ export class DateService {
     return day;
   }
   dateToString(date : Date) : string {
-    var annee : number = date.getFullYear();
-    var mois : number = date.getMonth();
-    var jour : number = date.getDate();
+    var annee : string = ''+date.getFullYear();
+    var mois : string = ''+date.getMonth();
+    var jour : string = ''+date.getDate();
+    if(Number(mois)<10){
+      mois = '0'+mois;
+    }
+    if(Number(jour)<10){
+      jour = '0'+jour;
+    }
     return annee+'-'+mois+'-'+jour;
   }
+
   equalDate(date1 : Date, date2 : Date) : boolean {
     var jourTest : boolean = date1.getDate()==date2.getDate();
     var moisTest : boolean = date1.getMonth() == date2.getMonth();

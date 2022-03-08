@@ -7,11 +7,9 @@ import {User} from "../model/user";
 })
 export class AuthService {
 
-  private connected: boolean;
   private user : User;
 
   constructor(private http : HttpClient) {
-    this.connected = false;
     this.user = {idEquipe:0,nom :'',prenom : ''}
   }
   connexion (login:string, password:string){
@@ -25,14 +23,19 @@ export class AuthService {
     return this.http.post<any>(connexionURL, logs, HttpOptions);
   }
   disconnect(): void {
-    this.connected=false;
+    localStorage.removeItem('token');
     this.user = {idEquipe:0,nom :'',prenom : ''}
   }
   getUser(): User {
     return this.user;
   }
-  setUser(user : User) : void {
+  setUser(user : User, token : string) : void {
+    localStorage.setItem('token',token);
     this.user=user
+  }
+  isConnected() : boolean {
+    const token = localStorage.getItem('token'); 
+    return !! token;
   }
 }
 

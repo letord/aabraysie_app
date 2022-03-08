@@ -12,14 +12,17 @@ import {DateService} from "./date.service";
 export class InterventionService {
 
   private map_interventions : Map<number,Intervention>= new Map<number,Intervention>();
-  private list_interventions : Array<Intervention> = new Array<Intervention>();
+  private list_interventions : Array<Intervention>  = new Array<Intervention>();
 
   constructor(private http: HttpClient, private dateService : DateService) {
   }
 
   getInterventions(id : number, annee : number) : Observable<Intervention[]> {
-    let HttpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})}
-    //let URL : string = 'https://dillxpbackend.herokuapp.com/interventions/'+id+'/'+annee;
+    let HttpOptions = { headers: new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : ''+localStorage.getItem('token')
+    })}
+    //let URL : string = 'https://dillxpbackend.herokuapp.com/interventions/'+'/'+annee;
     let URL : string = 'http://localhost:8080/interventions/'+id+'/'+annee;
 
     return this.http.get<any>(URL, HttpOptions).pipe(
@@ -49,20 +52,16 @@ export class InterventionService {
             consigne : consigne,
             commentaire_client : commentaire_client,
             iscommented : iscommented
-           }
-           interventions.push(intervention)
+          }
+          interventions.push(intervention);
+          this.list_interventions.push(intervention);
+          this.map_interventions.set(intervention.id,intervention);
         }
         return interventions;
       })
     );
   }
 
-  setInterventions(list : Array<Intervention>){
-    for (let i = 0; i <list.length ; i++) {
-      this.map_interventions.set(list[i].id, list[i])
-      this.list_interventions.push(list[i])
-    }
-  }
   get_Interventions() : Array<Intervention>{
     return this.list_interventions;
   }
@@ -80,23 +79,31 @@ export class InterventionService {
         interventions.push(intervention)
       }
     }
-    console.log('date ',date)
-    console.log('Interventions : ',this.list_interventions)
-    console.log('Intervention today : ',interventions)
     return interventions;
   }
+  getPositionIntervention(id : number) : number{
+    for (let i = 0; i< this.list_interventions.length; i++) {
+      if(this.list_interventions[i].id == id){
+        return i;
+      }
+    }
+    return 0;
+  }
 
-  addCommentaire(id : number, commentaire_client : string) {
+  addCommentaire(id : number, commentaire_client : string) : Observable<any>{
     let HttpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})}
-    let URL : string = 'https://dillxpbackend.herokuapp.com/interventions/fiche';
+    //let URL : string = 'https://dillxpbackend.herokuapp.com/interventions/fiche';
+    let URL : string = 'https://localhost:8080/interventions/fiche';
     var commentaire = {
       id: id,
       commentaire_client:commentaire_client
     }
-    this.http.post(URL, commentaire, HttpOptions).subscribe(
-      response => {
-        console.log('response : ',response)
-      }
-    )
+    return this.http.post(URL, commentaire, HttpOptions);
   }
+  setCommentaire(id : number, com : string){
+    let i = this.getPositionIntervention(id);
+    this.list_interventions[i].commentaire_client = com;
+    this.list_interventions[i].iscommented=true;
+  }
+
 }
